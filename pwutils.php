@@ -23,8 +23,9 @@ function list_as_ul( $pages ) {
 function list_as_excerpts( $pages ) {
     echo '<div>';
     foreach( $pages as $page ) {
+        $createdUser = $page->createdUser;
         echo '<h2><a href="' . $page->url . '">' . $page->title . '</a></h2>';
-        echo '<p style="font-size: 0.8em;">Posted on ' . formatDate( $page->created ) . '</p>';
+        echo '<p style="font-size: 0.8em;">Posted on ' . formatDate( $page->created ) . ' by <a href="' . $createdUser->url . '">' . $createdUser->name . '</a></p>';
         echo '<p>' . substr( $page->body, 0, 70 ) . '</p>';
     }
     echo '</div>';
