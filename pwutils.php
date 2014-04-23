@@ -38,12 +38,12 @@ function img( $src, $alt, $attrs = array() ) {
     return tag( 'img', $text = '', $attrs );
 }
 
-function h1( $text ) { return tag( 'h1', $text ); }
-function h2( $text ) { return tag( 'h2', $text ); }
-function h3( $text ) { return tag( 'h4', $text ); }
-function h4( $text ) { return tag( 'h4', $text ); }
-function h5( $text ) { return tag( 'h5', $text ); }
-function h6( $text ) { return tag( 'h6', $text ); }
+function h1( $text, $attrs=array() ) { return tag( 'h1', $text, $attrs ); }
+function h2( $text, $attrs=array() ) { return tag( 'h2', $text, $attrs ); }
+function h3( $text, $attrs=array() ) { return tag( 'h4', $text, $attrs ); }
+function h4( $text, $attrs=array() ) { return tag( 'h4', $text, $attrs ); }
+function h5( $text, $attrs=array() ) { return tag( 'h5', $text, $attrs ); }
+function h6( $text, $attrs=array() ) { return tag( 'h6', $text, $attrs ); }
 
 
 /*
