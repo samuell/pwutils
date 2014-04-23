@@ -5,6 +5,10 @@
  * Copyright 2014 Samuel Lampa - samuel.lampa@gmail.com
  */
 
+/*
+ * Generate HTML tags from text content and attributes
+ */
+
 function tag( $name, $text, $attrs=array() ) {
     $tag = '<' . $name;
     foreach( $attrs as $attrName => $attrContent ) {
