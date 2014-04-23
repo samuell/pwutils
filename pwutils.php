@@ -34,8 +34,6 @@ function img( $src, $alt, $attrs = array() ) {
     return tag( 'img', $text = '', $attrs );
 }
 
-function li( $text ) { return tag( 'li', $text ); }
-
 function h1( $text ) { return tag( 'h1', $text ); }
 function h2( $text ) { return tag( 'h2', $text ); }
 function h3( $text ) { return tag( 'h4', $text ); }
@@ -50,7 +48,8 @@ function h6( $text ) { return tag( 'h6', $text ); }
 function ul( $text, $attrs = array() ) { 
     return tag( 'ul', $text, $attrs );
 }
-function li_foreach( $pages ) {
+function li( $text ) { return tag( 'li', $text ); }
+function li_foreach_page( $pages ) {
     $lis = '';
     foreach( $pages as $page ) {
         $lis .= li( a( $page->url, $page->title ) );
@@ -58,19 +57,19 @@ function li_foreach( $pages ) {
     return $lis;
 }
 
-function list_as_excerpts( $pages ) {
-    echo '<div>';
+function excerpt_foreach_page( $pages ) {
+    $excerpts = '';
     foreach( $pages as $page ) {
         $crUser = $page->createdUser;
-        echo h2( a( $page->url, $page->title ) );
+        $excerpts .= h2( a( $page->url, $page->title ) );
         $postedText = 'Posted on ' . 
             formatDate( $page->created ) . 
             ', by ' . 
             a( $crUser->url, $crUser->name );
-        echo p( $postedText,  array('style' => 'font-size: 0.8em;' ) );
-        echo p( substr( $page->body, 0, 70 ) );
+        $excerpts .= p( $postedText,  array('style' => 'font-size: 0.8em;' ) );
+        $excerpts .= p( substr( $page->body, 0, 70 ) );
     }
-    echo '</div>';
+    return $excerpts;
 }
 
 /*
