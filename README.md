@@ -1,7 +1,7 @@
 PW Utils
 ========
 
-Utility functions for writing templates for the ProcessWire CMS.
+Utility functions for writing templates for the [ProcessWire CMS](http://processwire.com/)
 
 Might even be viewed as a kind of optional "template language" for ProcessWire.
 
@@ -32,7 +32,28 @@ Installation
 <?php include("pwutils.php"); ?>
 ````
 
-Example Usage
+More Examples
 -------------
 Find a few more examples below:
+
+### Linking Sibling pages
+#### Without PWUtils
+````php
+echo '<div class="w-col w-col-8 navigation-column">';
+echo "<a href='/' class='nav-link'>Welcome</a>";
+foreach( $page->siblings as $sibling ) {
+    echo "<a href='" . $sibling->url . "' class='nav-link'>" . $sibling->title . "</a>";
+}
+echo '</div>';
+````
+#### With PWUtils
+````php
+$a_css = array( 'class' => 'nav-link' );
+$div_css = array( 'class' => 'w-col w-col-8 navigation-column' );
+echo div( a( '/', 'Welcome', $a_css ) . \
+    a_foreach_page( $page->siblings, $a_css ),  
+    $div_css
+);
+````
+
 
