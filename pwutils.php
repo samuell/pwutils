@@ -32,6 +32,13 @@ function a( $url, $title, $attrs = array() ) {
     $attrs = array_merge( $attrs, array( 'href' => $url ));
     return tag( 'a', $title, $attrs );
 }
+function a_foreach_page( $pages, $attrs = array() ) {
+    $as = '';
+    foreach( $pages as $page ) {
+        $as .= a( $page->url, $page->title, $attrs );
+    }
+    return $as;
+}
 
 function img( $src, $alt, $attrs = array() ) { 
     $attrs = array_merge( array( 'src' => $src, 'alt' => $alt ), $attrs );
