@@ -48,12 +48,27 @@ echo '</div>';
 ````
 #### With PWUtils
 ````php
-$a_css = array( 'class' => 'nav-link' );
-$div_css = array( 'class' => 'w-col w-col-8 navigation-column' );
-echo div( a( '/', 'Welcome', $a_css ) . \
-    a_foreach_page( $page->siblings, $a_css ),  
-    $div_css
+$acssAttrs = array( 'class' => 'nav-link' );
+$divCssAttrs = array( 'class' => 'w-col w-col-8 navigation-column' );
+echo div( a( '/', 'Welcome', $acssAttrs ) .
+    a_foreach_page( $page->siblings, $acssAttrs ),  
+    $divCssAttrs
 );
 ````
+### Linking and styling images
 
+#### Without PWUtils
+````php
+foreach( $page->image as $img ) { 
+    echo "<a href="' . $img->url . "' ><img src='" . $img->url . "' style='border: 1px solid black;' /></a>";
+}
+````
+
+#### With PWUtils
+````php
+$styleattrs = array( 'style' => 'border: 1px solid black;' );
+foreach( $page->image as $img ) { 
+    echo a( $img->url, img( $img->url, '', $styleattrs ));
+}
+````
 
