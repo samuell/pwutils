@@ -6,35 +6,47 @@
  */
 
 function tag( $name, $text, $attrs=array() ) {
-    $tag = "";
-    $tag .= '<' . $name;
+    $tag = '<' . $name;
     foreach( $attrs as $attrName => $attrContent ) {
         $tag .= ' ' . $attrName . '="' . $attrContent . '"';
     }
-    $tag .= '>' . $text . '</' . $name . '>';
+    if ( $text !== '' ) {
+        $tag .= '>' . $text . '</' . $name . '>';
+    } else {
+        $tag .= ' />';    
+    }
     return $tag;
 }
-function a( $url, $title ) {
-    return tag( 'a', $title, array( 'href' => $url ));
-}
-function li( $text ) {
-    return tag( 'li', $text );
-}
-function h2( $text ) {
-    return tag( 'h2', $text );
-}
-function p( $text, $attrs ) {
-    return tag( 'p', $text, $attrs );
+
+/*
+ * Common HTML function
+ */
+
+function p( $text, $attrs ) { return tag( 'p', $text, $attrs ); }
+
+function a( $url, $title, $attrs = array() ) { 
+    $attrs = array_merge( $attrs, array( 'href' => $url ));
+    return tag( 'a', $title, $attrs );
 }
 
-function formatDate( $date ) {
-    if(is_int($date)) {
-        // get date format from our 'date' field, for consistency
-        $date = FieldtypeDatetime::formatDate($date, "%Y-%m-%d");
-    }   
-    return $date; 
+function img( $src, $alt, $attrs = array() ) { 
+    $attrs = array_merge( array( 'src' => $src, 'alt' => $alt ), $attrs );
+    return tag( 'img', $text = '', $attrs );
 }
 
+function li( $text ) { return tag( 'li', $text ); }
+
+function h1( $text ) { return tag( 'h1', $text ); }
+function h2( $text ) { return tag( 'h2', $text ); }
+function h3( $text ) { return tag( 'h4', $text ); }
+function h4( $text ) { return tag( 'h4', $text ); }
+function h5( $text ) { return tag( 'h5', $text ); }
+function h6( $text ) { return tag( 'h6', $text ); }
+
+
+/*
+ * Listing function
+ */
 function list_as_ul( $pages ) {
     echo '<ul>';
     foreach( $pages as $page ) {
@@ -56,5 +68,16 @@ function list_as_excerpts( $pages ) {
         echo p( substr( $page->body, 0, 70 ) );
     }
     echo '</div>';
+}
+
+/*
+ * Utility functions
+ */
+function formatDate( $date ) {
+    if(is_int($date)) {
+        // get date format from our 'date' field, for consistency
+        $date = FieldtypeDatetime::formatDate($date, "%Y-%m-%d");
+    }   
+    return $date; 
 }
 
