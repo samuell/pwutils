@@ -1,8 +1,9 @@
 <?php
 
-// More to come here ...
-//
-//
+/*
+ * Utility functionality for writing templates for the ProcessWire CMS
+ * Copyright 2014 Samuel Lampa - samuel.lampa@gmail.com
+ */
 
 function tag( $name, $text, $attrs=array() ) {
     $tag = "";
