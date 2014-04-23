@@ -47,12 +47,15 @@ function h6( $text ) { return tag( 'h6', $text ); }
 /*
  * Listing function
  */
-function list_as_ul( $pages ) {
-    echo '<ul>';
+function ul( $text, $attrs = array() ) { 
+    return tag( 'ul', $text, $attrs );
+}
+function li_foreach( $pages ) {
+    $lis = '';
     foreach( $pages as $page ) {
-        echo li( a( $page->url, $page->title ) );
+        $lis .= li( a( $page->url, $page->title ) );
     }
-    echo '</ul>';
+    return $lis;
 }
 
 function list_as_excerpts( $pages ) {
