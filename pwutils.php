@@ -10,16 +10,37 @@
  */
 
 function tag( $name, $text, $attrs=array() ) {
-    $tag = '<' . $name;
-    foreach( $attrs as $attrName => $attrContent ) {
-        $tag .= ' ' . $attrName . '="' . $attrContent . '"';
-    }
-    if ( $text !== '' ) {
-        $tag .= '>' . $text . '</' . $name . '>';
+    // If the content item is a PageArray, apply the tag
+    // on the title field of each of the pages in the PageArray.
+    if ( get_class( $text ) === "PageArray" ) {
+        $tag = '';
+        foreach( $text as $item ) {
+            $tag .= tag( $name, $item->title, $attrs );
+        }       
+        return $tag;
     } else {
-        $tag .= ' />';    
+        $tag = '<' . $name;
+        foreach( $attrs as $attrName => $attrContent ) {
+            $tag .= ' ' . $attrName . '="' . $attrContent . '"';
+        }
+        if ( $text !== '' ) {
+            $tag .= '>' . $text . '</' . $name . '>';
+        } else {
+            $tag .= ' />';    
+        }
+        return $tag;
     }
-    return $tag;
+}
+
+/**
+ * Apply a function foreach page in a PageArray and return a joined string of results
+ */
+function do_foreach( $page_array, $func, $attrs = array(), $separator = '' ) {
+    $result = '';
+    foreach( $page_array as $page ) {
+        $result .= $separator . $func( $page, $attrs );
+    }
+    return $result;
 }
 
 /*
@@ -32,12 +53,9 @@ function a( $url, $title, $attrs = array() ) {
     $attrs = array_merge( $attrs, array( 'href' => $url ));
     return tag( 'a', $title, $attrs );
 }
-function a_foreach_page( $pages, $attrs = array() ) {
-    $as = '';
-    foreach( $pages as $page ) {
-        $as .= a( $page->url, $page->title, $attrs );
-    }
-    return $as;
+
+function a_foreach( $pages, $attrs = array(), $separator = '' ) {
+    return do_foreach( $pages, function ( $p ) { return a( $p->url, $p->title ); }, $attrs, $separator );
 }
 
 function img( $src, $alt, $attrs = array() ) { 
@@ -54,18 +72,21 @@ function h6( $text, $attrs=array() ) { return tag( 'h6', $text, $attrs ); }
 
 
 /*
- * Listing function
+ * Lists
  */
 function ul( $text, $attrs = array() ) { 
     return tag( 'ul', $text, $attrs );
 }
-function li( $text ) { return tag( 'li', $text ); }
-function li_foreach_page( $pages ) {
-    $lis = '';
-    foreach( $pages as $page ) {
-        $lis .= li( a( $page->url, $page->title ) );
-    }
-    return $lis;
+function li( $text ) { return tag( 'li', $text );
+ }
+function li_foreach( $pages ) {
+    return do_foreach( $pages, function( $p ) { return li( $p->title ); } );
+}
+function li_a_foreach( $pages ) {
+    return do_foreach( $pages, function( $p ) { return li( a( $p->url, $p->title ) ); } );
+}
+function link_foreach( $pages ) {
+    return li_a_foreach( $pages );
 }
 
 function excerpt_foreach_page( $pages ) {
@@ -93,4 +114,5 @@ function formatDate( $date ) {
     }   
     return $date; 
 }
+
 
