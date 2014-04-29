@@ -5,6 +5,22 @@
  * Copyright 2014 Samuel Lampa - samuel.lampa@gmail.com
  */
 
+function isPageArray( $obj ) {
+    if ( get_class( $obj ) === "PageArray" ) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function isPage( $obj ) {
+    if ( get_class( $obj ) === "Page" ) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 /*
  * Generate HTML tags from text content and attributes
  */
@@ -12,7 +28,7 @@
 function tag( $name, $text, $attrs=array() ) {
     // If the content item is a PageArray, apply the tag
     // on the title field of each of the pages in the PageArray.
-    if ( get_class( $text ) === "PageArray" ) {
+    if ( isPageArray( $text ) ) {
         $tag = '';
         foreach( $text as $item ) {
             $tag .= tag( $name, $item->title, $attrs );
@@ -47,15 +63,17 @@ function do_foreach( $page_array, $func, $attrs = array(), $separator = '' ) {
  * Common HTML function
  */
 
-function p( $text, $attrs ) { return tag( 'p', $text, $attrs ); }
+function p( $obj, $attrs ) { return tag( 'p', $obj, $attrs ); }
 
-function a( $url, $title, $attrs = array() ) { 
-    $attrs = array_merge( $attrs, array( 'href' => $url ));
-    return tag( 'a', $title, $attrs );
-}
-
-function a_foreach( $pages, $attrs = array(), $separator = '' ) {
-    return do_foreach( $pages, function ( $p ) { return a( $p->url, $p->title ); }, $attrs, $separator );
+function a( $obj, $attrs = array() ) { 
+    if ( isPageArray( $obj ) ) {
+        return do_foreach( $obj, function ( $p ) { return a( $p ); } );
+    } else if ( isPage( $obj ) ) {
+        $attrs = array_merge( $attrs, array( 'href' => $obj->url ));
+        return tag( 'a', $obj->title, $attrs );
+    } else {
+        return tag('a', $obj, $attrs );
+    }
 }
 
 function img( $src, $alt, $attrs = array() ) { 
@@ -77,19 +95,18 @@ function h6( $text, $attrs=array() ) { return tag( 'h6', $text, $attrs ); }
 function ul( $text, $attrs = array() ) { 
     return tag( 'ul', $text, $attrs );
 }
+
 function li( $text ) { return tag( 'li', $text );
  }
-function li_foreach( $pages ) {
-    return do_foreach( $pages, function( $p ) { return li( $p->title ); } );
-}
-function li_a_foreach( $pages ) {
-    return do_foreach( $pages, function( $p ) { return li( a( $p->url, $p->title ) ); } );
-}
-function link_foreach( $pages ) {
-    return li_a_foreach( $pages );
+
+/*
+ * For each item, link it and itemize
+ */
+function li_a( $pages ) {
+    return do_foreach( $pages, function( $p ) { return li( a( $p ) ); } );
 }
 
-function excerpt_foreach_page( $pages ) {
+function excerpt( $pages ) {
     $excerpts = '';
     foreach( $pages as $page ) {
         $crUser = $page->createdUser;
