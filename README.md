@@ -26,6 +26,11 @@ echo ul( li( 'Home' ) .
     );
 ````
 
+This might not look as very big changes at first, but our experience is that when working 
+practically with the templating, the more "functional" (rather than string-padding:y)
+approach in PWUtils, makes it much easier to make changes to the code without breaking
+the number of quotes, and also tends to make the code a slight bit easier to read, in 
+our opinion.
 
 Installation
 ------------
