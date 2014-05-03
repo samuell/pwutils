@@ -26,10 +26,8 @@ echo ul( li( 'Home' ) . li_a( $page->children ) );
 ````php
 echo ul( li( 'Home' ) . 
         do_for( $page->children, function($p) { 
-            return li( 
-                a( $p->title, $p->url ) 
-            ); 
-        } )
+            return li( a( $p->title, $p->url ) ); 
+        })
     );
 ````
 
