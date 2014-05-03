@@ -25,7 +25,14 @@ echo ul( li( 'Home' ) . li_a( $page->children ) );
 
 ````php
 $custom_func = function($p) { return li( a( $p->url, $p->title ) ); }
-echo ul( li( 'Home' ) . do_for( $page->children, $custom_func ) );
+echo ul( li( 'Home' ) . 
+         do_for( $page->children, function($p) { 
+             return li( 
+                 a( $p->title, $p->url ) 
+             ); 
+            }
+         )
+     );
 ````
 
 

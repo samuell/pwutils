@@ -56,19 +56,6 @@ function ul( $text, $attrs = array() ) {
 function li( $text ) { return tag( 'li', $text );
  }
 
-function excerpt( $pages ) {
-    $excerpts = '';
-    foreach( $pages as $page ) {
-        $crUser = $page->createdUser;
-        $excerpts .= h2( a( $page->url, $page->title ) );
-        $postedText = 'Posted on ' . 
-            formatDate( $page->created ) . 
-            ', by ' . 
-            a( $crUser->url, $crUser->name );
-        $excerpts .= p( $postedText,  array('style' => 'font-size: 0.8em;' ) );
-        $excerpts .= p( substr( $page->body, 0, 70 ) );
-    }
-
 
 /* -------------------------------------------------------------------------
  * Utility functions
@@ -124,5 +111,4 @@ function isPage( $obj ) {
         return false;
     }
 }
-
 
