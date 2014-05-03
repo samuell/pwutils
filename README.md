@@ -21,11 +21,11 @@ With PW Utils, one could instead write:
 echo ul( li( 'Home' ) . li_a( $page->children ) );
 ````
 
-... or, if you want to do some custom stuff for each page in a PageArray, you can send an anonymous function to "do_foreach()":
+... or, if you want to do some custom stuff for each page in a PageArray, you can send an anonymous function to "do_for()":
 
 ````php
 $custom_func = function($p) { return li( a( $p->url, $p->title ) ); }
-echo ul( li( 'Home' ) . do_foreach( $page->children, $custom_func ) );
+echo ul( li( 'Home' ) . do_for( $page->children, $custom_func ) );
 ````
 
 
