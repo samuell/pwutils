@@ -16,12 +16,7 @@ foreach( $page->children as $child ) {
 }
 echo "</ul>";
 ````
-With PW Utils, one could instead write:
-````php
-echo ul( li( 'Home' ) . li_a( $page->children ) );
-````
-
-... or, if you want to do some custom stuff for each page in a PageArray, you can send an anonymous function to "do_for()":
+With PW Utils, one would instead write:
 
 ````php
 echo ul( li( 'Home' ) . 
