@@ -73,7 +73,7 @@ echo div( a( '/', 'Welcome', $acssAttrs ) .
 #### Without PWUtils
 ````php
 foreach( $page->image as $img ) { 
-    echo "<a href="' . $img->url . "' ><img src='" . $img->url . "' alt='Some alt-text' style='border: 1px solid black;' /></a>";
+    echo "<a href='" . $img->url . "' ><img src='" . $img->url . "' alt='Some alt-text' style='border: 1px solid black;' /></a>";
 }
 ````
 
