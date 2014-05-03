@@ -52,6 +52,7 @@ Find a few more examples below:
 ````php
 echo '<div class="w-col w-col-8 navigation-column">';
 echo "<a href='/' class='nav-link'>Welcome</a>";
+
 foreach( $page->siblings as $sibling ) {
     echo "<a href='" . $sibling->url . "' class='nav-link'>" . $sibling->title . "</a>";
 }
@@ -59,13 +60,14 @@ echo '</div>';
 ````
 #### With PWUtils
 ````php
-$acssAttrs = array( 'class' => 'nav-link' );
-$divCssAttrs = array( 'class' => 'w-col w-col-8 navigation-column' );
-echo div( a( '/', 'Welcome', $acssAttrs ) .
+$a_attrs = array( 'class' => 'nav-link' );
+$div_attrs = array( 'class' => 'w-col w-col-8 navigation-column' );
+
+echo div( a( '/', 'Welcome', $a_attrs ) .
         do_for( $page->siblings, function($p) {
-            return a( $p->url, $p->title, $acssAttrs );
+            return a( $p->url, $p->title, $a_attrs );
         } ), 
-        $divCssAttrs
+        $div_attrs
     );
 ````
 ### Linking and styling images
@@ -73,7 +75,9 @@ echo div( a( '/', 'Welcome', $acssAttrs ) .
 #### Without PWUtils
 ````php
 foreach( $page->image as $img ) { 
-    echo "<a href='" . $img->url . "' ><img src='" . $img->url . "' alt='Some alt-text' style='border: 1px solid black;' /></a>";
+    echo "<a href='" . $img->url . "' >";
+    echo "<img src='" . $img->url . "' alt='Some alt-text' style='border: 1px solid black;' />";
+    echo "</a>";
 }
 ````
 
