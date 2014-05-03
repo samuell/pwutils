@@ -62,24 +62,27 @@ echo '</div>';
 $acssAttrs = array( 'class' => 'nav-link' );
 $divCssAttrs = array( 'class' => 'w-col w-col-8 navigation-column' );
 echo div( a( '/', 'Welcome', $acssAttrs ) .
-    a_foreach_page( $page->siblings, $acssAttrs ),  
-    $divCssAttrs
-);
+        do_for( $page->siblings, function($p) {
+            return a( $p->url, $p->title, $acssAttrs );
+        } ), 
+        $divCssAttrs
+    );
 ````
 ### Linking and styling images
 
 #### Without PWUtils
 ````php
 foreach( $page->image as $img ) { 
-    echo "<a href="' . $img->url . "' ><img src='" . $img->url . "' style='border: 1px solid black;' /></a>";
+    echo "<a href="' . $img->url . "' ><img src='" . $img->url . "' alt='Some alt-text' style='border: 1px solid black;' /></a>";
 }
 ````
 
 #### With PWUtils
 ````php
 $styleattrs = array( 'style' => 'border: 1px solid black;' );
+
 foreach( $page->image as $img ) { 
-    echo a( $img->url, img( $img->url, '', $styleattrs ));
+    echo a( $img->url, img( $img->url, 'Some alt-text', $styleattrs ));
 }
 ````
 
