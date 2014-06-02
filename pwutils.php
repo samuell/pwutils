@@ -112,3 +112,11 @@ function isPage( $obj ) {
     }
 }
 
+function editLink( $page, $label='edit' ) {
+    global $config;
+    if($page->editable()) {
+            $url = $config->urls->admin . 'page/edit/?id=' . $page->id;
+            return a( $url, $label );
+    }
+}
+
