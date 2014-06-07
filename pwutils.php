@@ -26,6 +26,7 @@ function do_for( $page_array, $func, $attrs = array(), $separator = '' ) {
  * ------------------------------------------------------------------------- */
 
 function p( $text, $attrs ) { return tag( 'p', $text, $attrs ); }
+function div( $text, $attrs ) { return tag( 'div', $text, $attrs ); }
 
 function a( $href, $text, $attrs = array() ) { 
         $attrs = array_merge( $attrs, array( 'href' => $href ));
