@@ -3,6 +3,7 @@
 /* =========================================================================
  * Utility functionality for writing templates for the ProcessWire CMS
  * (See processwire.com)
+ * See http://github.com/samuell/pwutils for more information.
  * Copyright 2014 Samuel Lampa - samuel.lampa@gmail.com
  * ========================================================================= */
 
